@@ -29,8 +29,7 @@ public class hw3Array4 {
 		System.out.println("The array after : " + Arrays.toString(arr));
 		
 	//	for (int elem:arr){ System.out.println(elem);}
-		
-		scanner.close();
+	
 		
 	}
 
