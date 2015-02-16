@@ -35,17 +35,25 @@ public class TicTacToe {
 			}
 		}
 		showArr(arr);
-		
+
 		while(!ifWinner){
 			ifCorrect = false;
 			do{
 				System.out.println("Player " + playerMove + " move!");
 				System.out.print("Please enter the position:");
+//						try{
+//							choice = scanner.nextInt();	
+//						}
+//						catch(InputMismatchException e){
+//							System.out.println("Please enter the correct number!");
+//					}
+//				}
+				
 				choice = scanner.nextInt();
+				System.out.println(choice);
 				getChoice(choice,positionXY);
 				positionX = positionXY[0];
 				positionY = positionXY[1];
-				// System.out.println( "x = " + Integer.toString(positionX) + "y= " +  Integer.toString(positionY));
 				if((choice>9)||(choice)<1){
 					System.out.println("Enter the right position from 1 to 9:");}
 				else if(arr[positionX][positionY]!="-"){
@@ -69,8 +77,9 @@ public class TicTacToe {
 			}
 			showArr(arr);
 			playerMove = getPlayerMove(playerMove,player1Name,player2Name);
+			System.out.println();
 		}
-		System.out.println("winner is: " + winner + " with " + moveCount + " moves" );
+		System.out.println("winner is: " + winner + "!");
 		scanner.close();
 	}
 
@@ -97,14 +106,14 @@ public class TicTacToe {
 	}
 
 	static boolean  winnerStatus (String[][] arr){
-		if (    ((arr[0][0]==arr[1][0])&&(arr[1][0]==arr[2][0])&&(arr[0][0]!="-")&&(arr[1][0]!="-")&&(arr[2][0]!="-"))||
-				((arr[2][0]==arr[2][1])&&(arr[2][1]==arr[2][2])&&(arr[2][0]!="-")&&(arr[2][1]!="-")&&(arr[2][2]!="-"))||
-				((arr[2][2]==arr[1][2])&&(arr[1][2]==arr[0][2])&&(arr[2][2]!="-")&&(arr[1][2]!="-")&&(arr[0][2]!="-"))||
-				((arr[0][0]==arr[0][1])&&(arr[0][1]==arr[0][2])&&(arr[0][0]!="-")&&(arr[0][1]!="-")&&(arr[0][2]!="-"))||
-				((arr[1][0]==arr[1][1])&&(arr[1][1]==arr[1][2])&&(arr[1][0]!="-")&&(arr[1][1]!="-")&&(arr[1][2]!="-"))||
-				((arr[0][1]==arr[1][1])&&(arr[1][1]==arr[1][2])&&(arr[0][1]!="-")&&(arr[1][1]!="-")&&(arr[1][2]!="-"))||
-				((arr[0][1]==arr[1][1])&&(arr[1][1]==arr[2][2])&&(arr[0][1]!="-")&&(arr[1][1]!="-")&&(arr[2][2]!="-"))||
-				((arr[2][0]==arr[1][1])&&(arr[1][1]==arr[0][2])&&(arr[2][0]!="-")&&(arr[1][1]!="-")&&(arr[0][2]!="-"))
+		if (    ((arr[0][0]==arr[0][1])&&(arr[0][1]==arr[0][2])&&(arr[0][0]!="-")&&(arr[0][1]!="-")&&(arr[0][2]!="-"))||
+				((arr[0][2]==arr[1][2])&&(arr[1][2]==arr[2][2])&&(arr[0][2]!="-")&&(arr[1][2]!="-")&&(arr[2][2]!="-"))||
+				((arr[2][2]==arr[2][1])&&(arr[2][1]==arr[2][0])&&(arr[2][2]!="-")&&(arr[2][1]!="-")&&(arr[2][0]!="-"))||
+				((arr[0][0]==arr[1][0])&&(arr[1][0]==arr[2][0])&&(arr[0][0]!="-")&&(arr[1][0]!="-")&&(arr[2][0]!="-"))||
+				((arr[0][1]==arr[1][1])&&(arr[1][1]==arr[2][1])&&(arr[0][1]!="-")&&(arr[1][1]!="-")&&(arr[2][1]!="-"))||
+				((arr[1][0]==arr[1][1])&&(arr[1][1]==arr[1][2])&&(arr[0][1]!="-")&&(arr[1][1]!="-")&&(arr[1][2]!="-"))||
+				((arr[0][0]==arr[1][1])&&(arr[1][1]==arr[2][2])&&(arr[0][0]!="-")&&(arr[1][1]!="-")&&(arr[2][2]!="-"))||
+				((arr[0][2]==arr[1][1])&&(arr[1][1]==arr[2][0])&&(arr[0][2]!="-")&&(arr[1][1]!="-")&&(arr[2][0]!="-"))
 				)
 			return true;
 		else
@@ -152,7 +161,6 @@ public class TicTacToe {
 			y = 2;
 			break;
 		}
-		// System.out.println(Integer.toString(x + y));
 		positionXY[0] = x;
 		positionXY[1] = y;
 	}
