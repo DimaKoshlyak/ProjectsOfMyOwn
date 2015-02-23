@@ -1,11 +1,16 @@
-package com.mycompany;
+package ua.dimakoshlyak;
 
 import java.util.*;
-
+/**
+ * 
+ * @author DimaKoshlyak
+ *
+ *TicTacToe game for 2 players
+ */
 public class TicTacToe {
 
 	public static void main(String[] args) {
-		Scanner scanner = new Scanner(System.in);
+	
 		String[][] arr = new String [3][3]; 
 		String playerMove = new String();
 		String player1Name = new String();
@@ -16,15 +21,15 @@ public class TicTacToe {
 		int[] positionXY = new int[2];
 		boolean ifCorrect = false;
 		boolean ifWinner = false;
+		String stringChoice = new String();
+		char charChoice = 'a';
 		int choice = 0;
+		boolean ifNumberCorrect = false;
 		String winner = new String();
 
 		System.out.println("Welcome to the Tic Tac Tor game!");
-		System.out.print("Please enter the name of the first player: ");
-		player1Name=scanner.nextLine();
-
-		System.out.print("Please enter the name of the second player: ");
-		player2Name=scanner.nextLine();
+		player1Name=keyboard("Please enter the name of the first player");
+		player2Name=keyboard("Please enter the name of the second player");
 
 		Random r = new Random();
 		playerMove = r.nextInt(2)==0?player1Name:player2Name;
@@ -38,23 +43,24 @@ public class TicTacToe {
 
 		while(!ifWinner){
 			ifCorrect = false;
+			ifNumberCorrect = false;
 			do{
 				System.out.println("Player " + playerMove + " move!");
-				System.out.print("Please enter the position:");
-//						try{
-//							choice = scanner.nextInt();	
-//						}
-//						catch(InputMismatchException e){
-//							System.out.println("Please enter the correct number!");
-//					}
-//				}
-				
-				choice = scanner.nextInt();
-				System.out.println(choice);
+
+				while (!ifNumberCorrect){
+					ifNumberCorrect = false;
+					stringChoice = keyboard("Please enter the position");
+					charChoice = stringChoice.charAt(0);
+					if (Character.isLetter(charChoice)==true){
+						System.out.println("Please enter the number from 1 to 9:");}
+					else ifNumberCorrect = true;
+				}
+				choice = Character.getNumericValue(charChoice);
+
 				getChoice(choice,positionXY);
 				positionX = positionXY[0];
 				positionY = positionXY[1];
-				if((choice>9)||(choice)<1){
+				if((choice>9)||(choice<1)){
 					System.out.println("Enter the right position from 1 to 9:");}
 				else if(arr[positionX][positionY]!="-"){
 					System.out.println("This position is already occupied. Please enter another position:");}
@@ -80,10 +86,18 @@ public class TicTacToe {
 			System.out.println();
 		}
 		System.out.println("winner is: " + winner + "!");
-		scanner.close();
 	}
-
-	static void showArr(String[][] array){
+	
+	//keyboard enter
+	public static String keyboard(String message){
+		System.out.println(message  + ":");
+		Scanner scanner = new Scanner(System.in);
+		String rez = scanner.nextLine();
+		return rez;
+	}
+	
+	//show current array	
+	public static void showArr(String[][] array){
 		for (int i = 0; i<array.length; i++){
 			for (int j = 0; j <array.length; j++){
 				System.out.print(array[i][j] + " ");
@@ -98,13 +112,15 @@ public class TicTacToe {
 		System.out.println("7 | 8 | 9");
 	}
 
-	static String getPlayerMove(String playerMove, String player1Name, String player2Name){
+	//Player move change
+	public static String getPlayerMove(String playerMove, String player1Name, String player2Name){
 		if(playerMove == player1Name){
 			return  playerMove = player2Name;
 		}
 		else return playerMove = player1Name;
 	}
 
+	// winner status check.
 	static boolean  winnerStatus (String[][] arr){
 		if (    ((arr[0][0]==arr[0][1])&&(arr[0][1]==arr[0][2])&&(arr[0][0]!="-")&&(arr[0][1]!="-")&&(arr[0][2]!="-"))||
 				((arr[0][2]==arr[1][2])&&(arr[1][2]==arr[2][2])&&(arr[0][2]!="-")&&(arr[1][2]!="-")&&(arr[2][2]!="-"))||
@@ -120,6 +136,7 @@ public class TicTacToe {
 			return false;
 	}
 
+	//translation of player choice
 	static void getChoice(int choice, int[] positionXY){
 		int x = 1 ,  y = 1 ;
 
